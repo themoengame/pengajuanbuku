@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulir Pengajuan Buku</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #f6f9fc 0%, #e9f2f9 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 680px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 2.2rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 20, 40, 0.2), 0 8px 16px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 28px 48px rgba(0, 20, 40, 0.25);
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #0b2a3e;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 i {
+      color: #2a7faa;
+      font-size: 2rem;
+    }
+
+    .subhead {
+      color: #3a5b6e;
+      font-weight: 400;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #2a7faa;
+      padding-left: 16px;
+      background: rgba(42, 127, 170, 0.04);
+      border-radius: 0 12px 12px 0;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 1.6rem;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1d3d51;
+      margin-bottom: 8px;
+    }
+
+    label i {
+      color: #2a7faa;
+      width: 20px;
+      font-size: 1rem;
+    }
+
+    .label-desc {
+      font-weight: 400;
+      color: #4b6f84;
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: #ffffff;
+      border: 1.5px solid #dce7ef;
+      border-radius: 20px;
+      font-size: 1rem;
+      color: #0b2a3e;
+      transition: 0.2s ease;
+      outline: none;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #2a7faa;
+      box-shadow: 0 0 0 4px rgba(42, 127, 170, 0.15);
+      background: #ffffff;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #9bb4c7;
+      font-weight: 300;
+    }
+
+    .row-duo {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .row-duo .form-group {
+      flex: 1 1 160px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .status-hint {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      margin-top: 6px;
+      padding: 6px 12px;
+      background: #eef6fb;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #1d4b63;
+    }
+
+    .status-hint i {
+      color: #2a7faa;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px 20px;
+      background: #1b4b66;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      margin-top: 12px;
+      box-shadow: 0 8px 16px rgba(27, 75, 102, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-submit i {
+      font-size: 1.3rem;
+    }
+
+    .btn-submit:hover {
+      background: #123a4f;
+      transform: scale(1.01);
+      box-shadow: 0 12px 24px rgba(27, 75, 102, 0.35);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.97);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .preview-box {
+      margin-top: 28px;
+      padding: 18px 20px;
+      background: #ddecf7;
+      border-radius: 28px;
+      border-left: 8px solid #1b4b66;
+      color: #0a283b;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+    }
+
+    .preview-box p {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .preview-box strong {
+      color: #003153;
+      font-weight: 600;
+      min-width: 72px;
+    }
+
+    .preview-box .empty-message {
+      color: #4e6f82;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px dashed #b4cfdf;
+      margin: 12px 0 6px 0;
+      opacity: 0.5;
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.8rem 1.2rem;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+      .row-duo {
+        flex-direction: column;
+        gap: 0;
+      }
+      .row-duo .form-group {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>
+    <i class="fas fa-book-open"></i> 
+    Pengajuan Buku
+  </h2>
+  <div class="subhead">
+    <i class="fas fa-pen-fancy" style="margin-right: 6px;"></i> 
+    Isi data dengan lengkap, usulan Anda akan kami proses.
+  </div>
+
+  <form id="formPengajuan">
+    <div class="form-group">
+      <label for="nama">
+        <i class="fas fa-user"></i> Nama Lengkap
+      </label>
+      <input type="text" id="nama" name="nama" placeholder="Contoh: Ahmad Fauzan" required>
+    </div>
+
+    <div class="form-group">
+      <label for="status">
+        <i class="fas fa-id-badge"></i> Status
+      </label>
+      <select id="status" name="status" required>
+        <option value="" disabled selected>– Pilih status –</option>
+        <option value="Siswa">Siswa</option>
+        <option value="Guru">Guru</option>
+        <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+        <option value="Umum">Umum</option>
+      </select>
+      <div class="status-hint">
+        <i class="fas fa-info-circle"></i> 
+        Pilih salah satu: Siswa, Guru, Tenaga Kependidikan, atau Umum
+      </div>
+    </div>
+
+    <div class="row-duo">
+      <div class="form-group">
+        <label for="judul">
+          <i class="fas fa-heading"></i> Judul Buku
+        </label>
+        <input type="text" id="judul" name="judul_buku" placeholder="Misal: Fiksi Ilmiah" required>
+      </div>
+      <div class="form-group">
+        <label for="penerbit">
+          <i class="fas fa-building"></i> Penerbit
+        </label>
+        <input type="text" id="penerbit" name="penerbit" placeholder="Misal: Gramedia" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="usulan">
+        <i class="fas fa-comment-dots"></i> Apa yang Anda usulkan?
+        <span class="label-desc">(alasan / tujuan / catatan)</span>
+      </label>
+      <textarea id="usulan" name="usulan" placeholder="Tuliskan alasan pengajuan, manfaat, atau catatan tambahan…" required></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit" id="btnKirim">
+      <i class="fas fa-paper-plane"></i> 
+      <span id="btnText">Ajukan Buku</span>
+      <span class="loading-spinner" id="loadingSpinner"></span>
+    </button>
+  </form>
+
+  <div class="preview-box" id="previewBox">
+    <p style="font-weight: 500; gap: 6px;">
+      <i class="fas fa-clipboard-list" style="color: #1b4b66;"></i> 
+      <span>Ringkasan Pengajuan</span>
+    </p>
+    <hr>
+    <p><strong>Nama</strong> <span id="previewNama" class="empty-message">—</span></p>
+    <p><strong>Status</strong> <span id="previewStatus" class="empty-message">—</span></p>
+    <p><strong>Judul</strong> <span id="previewJudul" class="empty-message">—</span></p>
+    <p><strong>Penerbit</strong> <span id="previewPenerbit" class="empty-message">—</span></p>
+    <p style="align-items: flex-start;"><strong>Usulan</strong> <span id="previewUsulan" class="empty-message" style="max-width: 70%;">—</span></p>
+  </div>
+</div>
+
+<script>
+  // 🔥 GANTI URL INI DENGAN WEB APP URL DARI APPS SCRIPT
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxIi6hNH6kYztF_SCQQoWwKwMa3dnP6P9El8_iV_bXrGIYzVpBN2hP5zH1ygOREhXn0/exec';
+
+  const form = document.getElementById('formPengajuan');
+  const btnKirim = document.getElementById('btnKirim');
+  const btnText = document.getElementById('btnText');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+
+  // Preview elements
+  const previewNama = document.getElementById('previewNama');
+  const previewStatus = document.getElementById('previewStatus');
+  const previewJudul = document.getElementById('previewJudul');
+  const previewPenerbit = document.getElementById('previewPenerbit');
+  const previewUsulan = document.getElementById('previewUsulan');
+
+  // Input elements
+  const inputNama = document.getElementById('nama');
+  const selectStatus = document.getElementById('status');
+  const inputJudul = document.getElementById('judul');
+  const inputPenerbit = document.getElementById('penerbit');
+  const textareaUsulan = document.getElementById('usulan');
+
+  // Update preview
+  function updatePreview() {
+    previewNama.textContent = inputNama.value.trim() || '—';
+    previewStatus.textContent = selectStatus.value || '—';
+    previewJudul.textContent = inputJudul.value.trim() || '—';
+    previewPenerbit.textContent = inputPenerbit.value.trim() || '—';
+    previewUsulan.textContent = textareaUsulan.value.trim() || '—';
+
+    document.querySelectorAll('#previewBox .empty-message').forEach(el => {
+      if (el.textContent !== '—') {
+        el.classList.remove('empty-message');
+      }
+    });
+  }
+
+  form.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('input', updatePreview);
+    field.addEventListener('change', updatePreview);
+  });
+
+  // Submit handler
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Validasi
+    if (!inputNama.value.trim() || !selectStatus.value || !inputJudul.value.trim() || 
+        !inputPenerbit.value.trim() || !textareaUsulan.value.trim()) {
+      alert('⚠️ Semua field harus diisi!');
+      return;
+    }
+
+    // Disable button dan tampilkan loading
+    btnKirim.disabled = true;
+    btnText.textContent = 'Mengirim...';
+    loadingSpinner.style.display = 'inline-block';
+
+    try {
+      const formData = new FormData(form);
+      
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.result === 'success') {
+        alert('✅ Pengajuan berhasil! Data tersimpan di Google Sheet.');
+        form.reset();
+        updatePreview();
+      } else {
+        throw new Error(data.error || 'Terjadi kesalahan pada server.');
+      }
+    } catch (error) {
+      alert(`❌ Gagal mengirim data: ${error.message}`);
+      console.error('Error:', error);
+    } finally {
+      // Enable button kembali
+      btnKirim.disabled = false;
+      btnText.textContent = 'Ajukan Buku';
+      loadingSpinner.style.display = 'none';
+    }
+  });
+
+  // Initial preview
+  updatePreview();
+</script>
+
+</body>
+</html>
